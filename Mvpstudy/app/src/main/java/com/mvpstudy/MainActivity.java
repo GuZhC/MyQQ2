@@ -8,13 +8,17 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.mvpstudy.api.DoubanManager;
 import com.mvpstudy.book.BooksFragment;
+import com.mvpstudy.movie.MoviesContract;
 import com.mvpstudy.movie.MoviesFragment;
+import com.mvpstudy.movie.MoviesPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static  final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +39,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         DoubanPagerAdapter pagerAdapter = new DoubanPagerAdapter(getSupportFragmentManager());
-        pagerAdapter.addFragment(new MoviesFragment(),getApplication().getResources().getString(R.string.tab_movies_fragment));
+        MoviesFragment moviesFragment = MoviesFragment.newInstance();
+
+        pagerAdapter.addFragment(moviesFragment,getApplication().getResources().getString(R.string.tab_movies_fragment));
         pagerAdapter.addFragment(new BooksFragment(),getApplication().getResources().getString(R.string.tab_books_fragment));
         viewPager.setAdapter(pagerAdapter);
+
+        createrPresenter(moviesFragment);
+    }
+
+    private void createrPresenter(MoviesContract.View fragmentView){
+        new MoviesPresenter(DoubanManager.createDoubanService(),fragmentView);
     }
 
     static class DoubanPagerAdapter extends FragmentPagerAdapter{
