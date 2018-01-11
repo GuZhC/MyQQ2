@@ -1,21 +1,32 @@
 package com.rongyuan.mingyida.module.home;
 
+import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.base.BaseFragment;
+import com.rongyuan.mingyida.model.ClassifyBeans;
+import com.rongyuan.mingyida.model.HomeAllModel;
+import com.rongyuan.mingyida.model.PictureModel;
 import com.rongyuan.mingyida.utils.GlideImageLoader;
 import com.rongyuan.mingyida.utils.ToastUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by guZhongC on 2018/1/5.
@@ -31,6 +42,18 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
 
     @BindView(R.id.ed_home_search)
     TextView edHomeSearch;
+    @BindView(R.id.home_recycler_classify)
+    RecyclerView homeRecyclerClassify;
+    @BindView(R.id.home_recycler_hot)
+    RecyclerView homeRecyclerHot;
+    @BindView(R.id.home_recycler_all)
+    RecyclerView homeRecyclerAll;
+    Unbinder unbinder;
+
+    private HomePresenter mHomePresenter;
+    ClassifyAdapter mClassifyAdapter;
+    HotAdapter mHotAdapter;
+    AllAdapter mAllAdapter;
 
     //
     @Override
@@ -39,21 +62,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
     }
 
     @Override
-    protected void init() {
-        initBanner(); //todo  测试用
-
-    }
-
-    private void initBanner() {
+    protected void init(Bundle savedInstanceState) {
+        mHomePresenter = new HomePresenter(this);
         mBanner.setIndicatorGravity(BannerConfig.RIGHT);
         mBanner.setOnBannerListener(this);
 
-        List<String> imgUrls = new ArrayList<>();
-        imgUrls.add("http://www.songlankeji.com/static/index/image/zzgg%20(2).png");
-        imgUrls.add("http://www.songlankeji.com/static/index/image/zzgg%20(2).png");
-        imgUrls.add("http://www.songlankeji.com/static/index/image/zzgg%20(2).png");
-        mBanner.setImages(imgUrls).setImageLoader(new GlideImageLoader()).start();
+
+        mHomePresenter.subscribe();
     }
+
 
     @Override
     public void showBannerFail(String failMessage) {
@@ -65,11 +82,81 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
         mBanner.setImages(imgUrls).setImageLoader(new GlideImageLoader()).start();
     }
 
+    @Override
+    public void setRecyclerClassify(List<ClassifyBeans> itemdata) {
+        mClassifyAdapter = new ClassifyAdapter(itemdata);
+        mClassifyAdapter.openLoadAnimation();
+        mClassifyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ToastUtils.showSuccess(getContext(), "点击" + position);
+            }
+        });
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 5);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+//        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        homeRecyclerClassify.setLayoutManager(linearLayoutManager);
+        homeRecyclerClassify.setNestedScrollingEnabled(false);
+        homeRecyclerClassify.setAdapter(mClassifyAdapter);
+    }
+
+    @Override
+    public void setRecyclerHot(List<PictureModel> itemdata) {
+        mHotAdapter = new HotAdapter(itemdata);
+        mHotAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        mHotAdapter.isFirstOnly(false);
+        mHotAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ToastUtils.showSuccess(getContext(), "点击" + position);
+            }
+        });
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        homeRecyclerHot.setLayoutManager(linearLayoutManager);
+        homeRecyclerHot.setAdapter(mHotAdapter);
+    }
+
+    @Override
+    public void setRecyclerall(List<HomeAllModel> itemdata) {
+        mAllAdapter = new AllAdapter(itemdata);
+        mAllAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
+        mAllAdapter.isFirstOnly(true);
+        mAllAdapter.setOnItemChildClickListener(
+                new BaseQuickAdapter.OnItemChildClickListener() {
+                    @Override
+                    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        switch (view.getId()){
+                            case R.id.layout_home_one:
+                                ToastUtils.showInfo(getContext(),"one"+position);
+                                break;
+                            case R.id.layout_home_two:
+                                ToastUtils.showInfo(getContext(),"two"+position);
+                                break;
+                            case R.id.layout_home_three:
+                                ToastUtils.showInfo(getContext(),"three"+position);
+                                break;
+                        }
+                    }
+                }
+        );
+        homeRecyclerAll.setLayoutManager(new LinearLayoutManager(getContext()));
+        homeRecyclerAll.setNestedScrollingEnabled(false);
+        homeRecyclerAll.setAdapter(mAllAdapter);
+    }
+
+    @Override
+    public void OnBannerClick(int position) {
+        PictureModel model = mHomePresenter.getBannerModel().get(position);
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
+        if (mHomePresenter != null) {
+            mHomePresenter.unSubscribe();
+        }
+        unbinder.unbind();
     }
 
     @OnClick({R.id.ed_home_search, R.id.tv_home_info})
@@ -83,7 +170,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
     }
 
     @Override
-    public void OnBannerClick(int position) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
     }
 }

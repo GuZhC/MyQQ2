@@ -1,5 +1,7 @@
 package com.rongyuan.mingyida.module.cart;
 
+import android.os.Bundle;
+
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.base.BaseFragment;
 import com.rongyuan.mingyida.utils.ToastUtils;
@@ -16,7 +18,9 @@ public class CartFragment extends BaseFragment {
     }
 
     @Override
-    protected void init() {
-        ToastUtils.showSuccess(getContext(),"cart");
+    protected void init(Bundle savedInstanceState) {
+
     }
+
+
 }

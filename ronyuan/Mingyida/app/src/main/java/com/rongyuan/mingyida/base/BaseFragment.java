@@ -26,7 +26,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 界面初始化
      */
-    protected abstract void init();
+    protected abstract void init( Bundle savedInstanceState);
 
     @Nullable
     @Override
@@ -36,7 +36,7 @@ public abstract class BaseFragment extends Fragment {
             if (getContentViewLayoutID() != 0) {
                 mRootView = inflater.inflate(getContentViewLayoutID(), container, false);
                 unbinder = ButterKnife.bind(this, mRootView);
-                init();//初始化要放这儿
+                init( savedInstanceState);//初始化要放这儿
             } else {
                 return super.onCreateView(inflater, container, savedInstanceState);
             }

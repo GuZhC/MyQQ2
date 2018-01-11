@@ -1,5 +1,7 @@
 package com.rongyuan.mingyida.module.me;
 
+import android.os.Bundle;
+
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.base.BaseFragment;
 import com.rongyuan.mingyida.utils.ToastUtils;
@@ -16,7 +18,7 @@ public class MeFragment extends BaseFragment {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         ToastUtils.showSuccess(getContext(),"me");
     }
 }
