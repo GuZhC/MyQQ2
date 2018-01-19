@@ -1,5 +1,6 @@
 package com.rongyuan.mingyida.module.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import com.rongyuan.mingyida.base.BaseFragment;
 import com.rongyuan.mingyida.model.ClassifyBeans;
 import com.rongyuan.mingyida.model.HomeAllModel;
 import com.rongyuan.mingyida.model.PictureModel;
+import com.rongyuan.mingyida.module.classify.ClassifyActivity;
 import com.rongyuan.mingyida.utils.GlideImageLoader;
 import com.rongyuan.mingyida.utils.ToastUtils;
 import com.youth.banner.Banner;
@@ -89,12 +91,23 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
         mClassifyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showSuccess(getContext(), "点击" + position);
+//                ToastUtils.showSuccess(getContext(), "点击" + position);
+                switch (position) {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        startActivity(new Intent(getContext(), ClassifyActivity.class));
+                        break;
+                }
             }
         });
         LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 5);
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-//        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         homeRecyclerClassify.setLayoutManager(linearLayoutManager);
         homeRecyclerClassify.setNestedScrollingEnabled(false);
         homeRecyclerClassify.setAdapter(mClassifyAdapter);
@@ -126,15 +139,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
                 new BaseQuickAdapter.OnItemChildClickListener() {
                     @Override
                     public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        switch (view.getId()){
+                        switch (view.getId()) {
                             case R.id.layout_home_one:
-                                ToastUtils.showInfo(getContext(),"one"+position);
+                                ToastUtils.showInfo(getContext(), "one" + position);
                                 break;
                             case R.id.layout_home_two:
-                                ToastUtils.showInfo(getContext(),"two"+position);
+                                ToastUtils.showInfo(getContext(), "two" + position);
                                 break;
                             case R.id.layout_home_three:
-                                ToastUtils.showInfo(getContext(),"three"+position);
+                                ToastUtils.showInfo(getContext(), "three" + position);
                                 break;
                         }
                     }

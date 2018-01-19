@@ -182,7 +182,8 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
     public void setRecycler(List<NeaberShopModel> data) {
         mNearbyAdapter = new NearbyAdapter(data);
         mNearbyAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
-        mNearbyAdapter.isFirstOnly(false);
+        mNearbyAdapter.isFirstOnly(true);
+        mNearbyAdapter.setNotDoAnimationCount(3);
         nearbyRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         nearbyRecycler.setAdapter(mNearbyAdapter);
         mNearbyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
