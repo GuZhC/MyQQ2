@@ -3,7 +3,6 @@ package com.rongyuan.mingyida.module.classify;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.rongyuan.mingyida.R;
+import com.rongyuan.mingyida.base.BaseActivity;
 import com.rongyuan.mingyida.model.ClassifyModel;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class ClassifyActivity extends AppCompatActivity implements ClassifyContract.IClassifyView {
+public class ClassifyActivity extends BaseActivity implements ClassifyContract.IClassifyView {
 
 
     @BindView(R.id.iv_classify_back)
@@ -35,7 +35,7 @@ public class ClassifyActivity extends AppCompatActivity implements ClassifyContr
 
     ClassifyLiftAdapter liftAdapter;
     ClassifyRightAdapter rightAdapter;
-     LinearLayoutManager  manager = new LinearLayoutManager(this);
+    LinearLayoutManager manager = new LinearLayoutManager(this);
 
     private int NowChose = 0;
 
@@ -46,10 +46,8 @@ public class ClassifyActivity extends AppCompatActivity implements ClassifyContr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classify);
         ButterKnife.bind(this);
-
+       hideToolbar();
         mClassifyPesenter = new ClassifyPresenter(this);
-
-
         mClassifyPesenter.subscribe();
     }
 
@@ -67,7 +65,6 @@ public class ClassifyActivity extends AppCompatActivity implements ClassifyContr
     @Override
     public void setLiftRecycler(final List<ClassifyModel> data) {
         liftAdapter = new ClassifyLiftAdapter(data, this);
-//        liftAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         recyclerClassifyLift.setLayoutManager(new LinearLayoutManager(this));
         recyclerClassifyLift.setAdapter(liftAdapter);
         liftAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -88,7 +85,6 @@ public class ClassifyActivity extends AppCompatActivity implements ClassifyContr
     @Override
     public void setRightRecycler(final List<ClassifyModel> data) {
         rightAdapter = new ClassifyRightAdapter(data);
-//        rightAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
         recyclerClassifyRight.setLayoutManager(manager);
         recyclerClassifyRight.setAdapter(rightAdapter);
         recyclerClassifyRight.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -117,24 +113,24 @@ public class ClassifyActivity extends AppCompatActivity implements ClassifyContr
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int distance = 0;
-                if (Math.abs(distance-Math.abs(dy)) >16){
+                if (Math.abs(distance - Math.abs(dy)) > 16) {
                     distance = Math.abs(dy);
                     RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
                     //判断是当前layoutManager是否为LinearLayoutManager
                     // 只有LinearLayoutManager才有查找第一个和最后一个可见view位置的方法
 //                    if (layoutManager instanceof LinearLayoutManager) {
 //                        LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
-                        //获取最后一个可见view的位置
+                    //获取最后一个可见view的位置
 //                    int lastItemPosition = linearManager.findLastVisibleItemPosition();
-                        //获取第一个可见view的位置
-                        int firstItemPosition = manager.findFirstVisibleItemPosition();
-                        if (firstItemPosition!= NowChose){
-                            data.get(firstItemPosition).setChose(true);
-                            data.get(NowChose).setChose(false);
-                            NowChose = firstItemPosition;
-                            liftAdapter.notifyDataSetChanged();
-                        }
+                    //获取第一个可见view的位置
+                    int firstItemPosition = manager.findFirstVisibleItemPosition();
+                    if (firstItemPosition != NowChose) {
+                        data.get(firstItemPosition).setChose(true);
+                        data.get(NowChose).setChose(false);
+                        NowChose = firstItemPosition;
+                        liftAdapter.notifyDataSetChanged();
                     }
+                }
 //                }
             }
         });

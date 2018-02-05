@@ -3,11 +3,11 @@ package com.rongyuan.mingyida.module.classify;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.model.GoodsModel;
+import com.rongyuan.mingyida.utils.Common;
 
 import java.util.List;
 
@@ -25,11 +25,7 @@ public class ClassifyGoodsAdapter extends BaseQuickAdapter<GoodsModel, BaseViewH
     @Override
     protected void convert(BaseViewHolder helper, GoodsModel item) {
         helper.setText(R.id.tv_classify_goods_name, item.getTitle());
-        Glide.with(mContext)
-                .load(item.getImgUrl())
-                .placeholder(R.mipmap.image_default)
-                .error(R.drawable.errorview)
-                .crossFade(800)
-                .into((ImageView) helper.getView(R.id.iv_classify_goods_img));
+        Common.ShowImage(mContext, item.getImgUrl(), (ImageView) helper.getView(R.id.iv_classify_goods_img));
+
     }
 }

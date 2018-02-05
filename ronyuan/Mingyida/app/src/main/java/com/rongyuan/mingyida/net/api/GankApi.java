@@ -26,4 +26,5 @@ public interface GankApi {
      */
     @GET("data/{category}/{count}/{page}")
     Observable<CategoryResult> getCategoryData(@Path("category") String category, @Path("count") int count, @Path("page") int page);
+
 }

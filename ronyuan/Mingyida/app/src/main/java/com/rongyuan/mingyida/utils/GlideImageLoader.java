@@ -1,10 +1,11 @@
 package com.rongyuan.mingyida.utils;
 
 import android.content.Context;
-import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.request.RequestOptions;
 import com.rongyuan.mingyida.R;
 import com.youth.banner.loader.ImageLoader;
 
@@ -18,10 +19,14 @@ public class GlideImageLoader extends ImageLoader {
          传输的到的是什么格式，那么这种就使用Object接收和返回，你只需要强转成你传输的类型就行，
          切记不要胡乱强转！
          */
+        RequestOptions options = new RequestOptions()
+                .error(R.drawable.errorview)
+                .priority(Priority.HIGH);
         //Glide 加载图片简单用法
-        Glide.with(context).load(path).placeholder(R.drawable.lodingview).error(R.drawable.errorview).into(imageView);
+        Glide.with(context).load(path).apply(options).into(imageView);
 
-        Uri uri = Uri.parse((String) path);
-        imageView.setImageURI(uri);
+//        Uri uri = Uri.parse((String) path);
+//        imageView.setImageURI(uri);
     }
+
 }

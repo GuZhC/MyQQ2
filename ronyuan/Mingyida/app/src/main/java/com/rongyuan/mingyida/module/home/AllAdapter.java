@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.model.HomeAllModel;
+import com.rongyuan.mingyida.utils.Common;
 
 import java.util.List;
 
@@ -28,17 +29,14 @@ public class AllAdapter extends BaseQuickAdapter<HomeAllModel, BaseViewHolder> {
         if (position == 0) {
             Glide.with(mContext)
                     .load(R.mipmap.home_maintain_img)
-                    .error(R.drawable.errorview)
                     .into((ImageView) helper.getView(R.id.img_home_title_image));
         } else if (position == 1) {
             Glide.with(mContext)
                     .load(R.mipmap.home_wash_img)
-                    .error(R.drawable.errorview)
                     .into((ImageView) helper.getView(R.id.img_home_title_image));
         } else {
             Glide.with(mContext)
                     .load(R.mipmap.home_refit_img)
-                    .error(R.drawable.errorview)
                     .into((ImageView) helper.getView(R.id.img_home_title_image));
         }
         helper.setText(R.id.tv_home_title_one, item.getTitleA());
@@ -47,23 +45,8 @@ public class AllAdapter extends BaseQuickAdapter<HomeAllModel, BaseViewHolder> {
         helper.setText(R.id.tv_home_content_one, item.getCotentA());
         helper.setText(R.id.tv_home_content_two, item.getCotentB());
         helper.setText(R.id.tv_home_content_three, item.getCotentC());
-        Glide.with(mContext)
-                .load(item.getImageA())
-                .placeholder(R.mipmap.image_default)
-                .error(R.drawable.errorview)
-                .crossFade(800)
-                .into((ImageView) helper.getView(R.id.img_home_img_one));
-        Glide.with(mContext)
-                .load(item.getImageB())
-                .placeholder(R.mipmap.image_default)
-                .error(R.drawable.errorview)
-                .crossFade(800)
-                .into((ImageView) helper.getView(R.id.img_home_img_two));
-        Glide.with(mContext)
-                .load(item.getImageC())
-                .placeholder(R.mipmap.image_default)
-                .error(R.drawable.errorview)
-                .crossFade(800)
-                .into((ImageView) helper.getView(R.id.img_home_img_three));
+        Common.ShowImage(mContext, item.getImageA(), (ImageView) helper.getView(R.id.img_home_img_one));
+        Common.ShowImage(mContext, item.getImageB(), (ImageView) helper.getView(R.id.img_home_img_two));
+        Common.ShowImage(mContext, item.getImageC(), (ImageView) helper.getView(R.id.img_home_img_three));
     }
 }

@@ -42,7 +42,6 @@ public class ClassifyRightAdapter extends BaseQuickAdapter<ClassifyModel, BaseVi
             }
         });
         recyclerView.setNestedScrollingEnabled(false);
-//        mClassifyGoodsAdapter.openLoadAnimation(SLIDEIN_RIGHT);
         View top = LayoutInflater.from(mContext).inflate(R.layout.classify_goods_top_view, (ViewGroup) recyclerView.getParent(), false);
         TextView tv = top.findViewById(R.id.tv_classify_goods_head);
         tv.setText(item.getClassify().toString());

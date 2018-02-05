@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.model.CartGoodsModel;
 import com.rongyuan.mingyida.model.RecommendGodds;
+import com.rongyuan.mingyida.utils.Common;
 import com.rongyuan.mingyida.utils.ToastUtils;
 
 import java.util.List;
@@ -58,12 +59,8 @@ public class CartAdapter extends BaseMultiItemQuickAdapter<CartGoodsModel, BaseV
                 }else {
                     helper.setChecked(R.id.cb_item_cart,false);
                 }
-                Glide.with(mContext)
-                        .load(item.getGoodsImgUrl())
-                        .placeholder(R.mipmap.image_default)
-                        .error(R.drawable.errorview)
-                        .crossFade(800)
-                        .into((ImageView) helper.getView(R.id.img_nearby_item_goods));
+                Common.ShowImage(mContext,item.getGoodsImgUrl(),(ImageView) helper.getView(R.id.img_nearby_item_goods));
+
                 break;
             case CartGoodsModel.CART_RECOMMEND:
                 helper.setNestView(R.id.item_newrby_goods); // u can set nestview id

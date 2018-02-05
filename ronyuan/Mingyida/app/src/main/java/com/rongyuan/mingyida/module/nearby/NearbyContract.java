@@ -19,7 +19,7 @@ public interface NearbyContract {
     interface INearbyView extends BaseView {
 
         /**
-         * 附近司机
+         * 附近
          *
          * @param data
          */

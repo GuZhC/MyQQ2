@@ -143,7 +143,9 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mLbsLayer.onSaveInstanceState(outState);
+        if (outState !=null){
+            mLbsLayer.onSaveInstanceState(outState);
+        }
     }
 
     /**

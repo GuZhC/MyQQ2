@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.model.ClassifyBeans;
+import com.rongyuan.mingyida.utils.Common;
 
 import java.util.List;
 
@@ -26,9 +27,6 @@ public class ClassifyAdapter extends BaseQuickAdapter<ClassifyBeans,BaseViewHold
         helper.setText(R.id.home_recycler_classify_title,item.getTitle());
         Glide.with(mContext)
                 .load(Integer.valueOf(item.getImgUrl()))
-                .placeholder(R.mipmap.image_default)
-                .error(R.drawable.errorview)
-                .crossFade(700)
                 .into((ImageView) helper.getView(R.id.home_recycler_classify_img));
     }
 }

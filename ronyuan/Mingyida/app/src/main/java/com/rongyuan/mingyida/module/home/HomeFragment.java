@@ -17,6 +17,8 @@ import com.rongyuan.mingyida.model.ClassifyBeans;
 import com.rongyuan.mingyida.model.HomeAllModel;
 import com.rongyuan.mingyida.model.PictureModel;
 import com.rongyuan.mingyida.module.classify.ClassifyActivity;
+import com.rongyuan.mingyida.module.goods.AllGoodsActivity;
+import com.rongyuan.mingyida.module.servingproduct.AllservicesActivity;
 import com.rongyuan.mingyida.utils.GlideImageLoader;
 import com.rongyuan.mingyida.utils.ToastUtils;
 import com.youth.banner.Banner;
@@ -94,12 +96,24 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
 //                ToastUtils.showSuccess(getContext(), "点击" + position);
                 switch (position) {
                     case 0:
+                        Intent intentA  = new Intent(getContext(), AllservicesActivity.class);
+                        intentA.putExtra("toolbarTitle","洗车");
+                        startActivity(intentA);
                         break;
                     case 1:
+                        Intent intentB  = new Intent(getContext(), AllservicesActivity.class);
+                        intentB.putExtra("toolbarTitle","保养");
+                        startActivity(intentB);
                         break;
                     case 2:
+                        Intent intentC  = new Intent(getContext(), AllservicesActivity.class);
+                        intentC.putExtra("toolbarTitle","改装");
+                        startActivity(intentC);
                         break;
                     case 3:
+                        Intent intentD  = new Intent(getContext(), AllGoodsActivity.class);
+                        intentD.putExtra("toolbarTitle","汽车用品");
+                        startActivity(intentD);
                         break;
                     case 4:
                         startActivity(new Intent(getContext(), ClassifyActivity.class));
