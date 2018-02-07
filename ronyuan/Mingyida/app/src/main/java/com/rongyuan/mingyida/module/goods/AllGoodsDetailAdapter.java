@@ -36,8 +36,8 @@ public class AllGoodsDetailAdapter extends BaseQuickAdapter<AllGoodsListModel,Ba
         }else {
             helper.getView(R.id.iv_allgoods_recycler_promotion).setVisibility(View.VISIBLE);
         }
-        helper.setText(R.id.tv_allgoods_recycler_market_price,"市场价￥:"+item.getMarketPrice());
-        helper.setText(R.id.tv_allgoods_recycler_buy_number,item.getBuyNumber()+"人付款");
+        helper.setText(R.id.tv_allgoods_recycler_market_price,"市场￥:"+item.getMarketPrice());
+        helper.setText(R.id.tv_allgoods_recycler_buy_number,"销量"+item.getBuyNumber());
         helper.setText(R.id.tv_allgoods_recycler_name,item.getTitle());
 
     }

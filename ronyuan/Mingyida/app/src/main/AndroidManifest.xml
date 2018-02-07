@@ -20,8 +20,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:allowBackup="true"
         android:name=".App"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -48,7 +48,11 @@
         <activity android:name=".module.register.RegisterActivity" />
         <activity android:name=".module.goods.goodsdetails.GoodsDetailsActivity" />
         <activity android:name=".module.servingproduct.AllservicesActivity" />
-        <activity android:name=".module.goods.AllGoodsActivity"></activity>
+        <activity android:name=".module.goods.AllGoodsActivity" />
+        <activity android:name=".module.store.StoreDetailsActivity" />
+        <activity android:name=".module.servingproduct.servedetails.ServeDetailsActivity" />
+        <activity android:name=".module.login.ForgetPswActivity" />
+        <activity android:name=".module.me.account.MyAccountActivity"></activity>
     </application>
 
 </manifest>

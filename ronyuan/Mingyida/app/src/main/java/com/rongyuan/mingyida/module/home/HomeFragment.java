@@ -18,7 +18,9 @@ import com.rongyuan.mingyida.model.HomeAllModel;
 import com.rongyuan.mingyida.model.PictureModel;
 import com.rongyuan.mingyida.module.classify.ClassifyActivity;
 import com.rongyuan.mingyida.module.goods.AllGoodsActivity;
+import com.rongyuan.mingyida.module.goods.goodsdetails.GoodsDetailsActivity;
 import com.rongyuan.mingyida.module.servingproduct.AllservicesActivity;
+import com.rongyuan.mingyida.module.servingproduct.servedetails.ServeDetailsActivity;
 import com.rongyuan.mingyida.utils.GlideImageLoader;
 import com.rongyuan.mingyida.utils.ToastUtils;
 import com.youth.banner.Banner;
@@ -135,7 +137,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.IHomeView
         mHotAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showSuccess(getContext(), "点击" + position);
+                startActivity(new Intent(getContext(), GoodsDetailsActivity.class));
             }
         });
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());

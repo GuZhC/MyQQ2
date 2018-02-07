@@ -23,7 +23,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <TextView
@@ -66,7 +66,7 @@
                 android:maxLines="1"
                 android:text=""
                 android:textColor="@color/textLight"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/tv_allgoods_recycler_buy_number"
@@ -77,14 +77,14 @@
                 android:maxLines="1"
                 android:text=""
                 android:textColor="@color/textLight"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/tv_allgoods_recycler_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="6dp"
             android:layout_marginTop="4dp"
             android:ellipsize="end"

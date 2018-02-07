@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -26,9 +25,13 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.base.BaseActivity;
+import com.rongyuan.mingyida.model.BaseModel;
 import com.rongyuan.mingyida.model.RegisterModel;
 import com.rongyuan.mingyida.net.NetWork;
+import com.rongyuan.mingyida.ui.MyLoader;
+import com.rongyuan.mingyida.utils.Common;
 import com.rongyuan.mingyida.utils.ToastUtils;
+import com.rongyuan.mingyida.utils.countDownTimer;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -119,14 +122,18 @@ public class RegisterActivity extends BaseActivity {
             return;
         } else {
             if (isAgree) {
-                if (isMember) {
-                    doPoast(true);
-                } else {
-                    if (TextUtils.isEmpty(truename) || isChoseImg) {
-                        ToastUtils.showError(RegisterActivity.this, "请填写完整信息");
+                if (mPassword.equals(mPasswordTwo)) {
+                    if (isMember) {
+                        doPoast(true);
                     } else {
-                        doPoast(false);
+                        if (TextUtils.isEmpty(truename) || !isChoseImg) {
+                            ToastUtils.showError(RegisterActivity.this, "信息不完整");
+                        } else {
+                            doPoast(false);
+                        }
                     }
+                } else {
+                    ToastUtils.showError(RegisterActivity.this, "两次密码不一致");
                 }
             } else {
                 ToastUtils.showError(RegisterActivity.this, "请勾选注册协议");
@@ -136,45 +143,89 @@ public class RegisterActivity extends BaseActivity {
 
     private void doPoast(boolean isMember) {
         List<MultipartBody.Part> params = new ArrayList<>();
+        RequestBody requestBodyA = null;
+        RequestBody requestBodyB = null;
         MultipartBody.Part which = MultipartBody.Part.createFormData("which", Role);
         MultipartBody.Part trueneme = MultipartBody.Part.createFormData("truename", truename);
-        MultipartBody.Part username = MultipartBody.Part.createFormData("username", mMame);
+        MultipartBody.Part username = MultipartBody.Part.createFormData("username", phone);
+        MultipartBody.Part nice = MultipartBody.Part.createFormData("nice", mMame);
         MultipartBody.Part anth_code = MultipartBody.Part.createFormData("auth_code", mAuthCode);
         MultipartBody.Part anth_code_type = MultipartBody.Part.createFormData("auth_code_type", "register");
         MultipartBody.Part password = MultipartBody.Part.createFormData("password", mPassword);
         params.add(which);
-        params.add(trueneme);
+
+        if (!isMember) {
+            if ((fileA != null && fileA.exists()) && (fileB != null && fileB.exists())) {
+                requestBodyA = RequestBody.create(MediaType.parse("image/*"), fileA);
+                requestBodyB = RequestBody.create(MediaType.parse("image/*"), fileB);
+            }
+            params.add(trueneme);
+            ToastUtils.showInfo(RegisterActivity.this, "图片上传，可能比较耗时");
+        }
         params.add(username);
+        params.add(nice);
         params.add(anth_code);
         params.add(anth_code_type);
         params.add(password);
-        if ((fileA != null && fileA.exists()) && (fileB != null && fileB.exists())) {
-            RequestBody requestBodyA = RequestBody.create(MediaType.parse("image/*"), fileA);
-            RequestBody requestBodyB = RequestBody.create(MediaType.parse("image/*"), fileB);
-            mSubscription = NetWork.getRegisterApi()
-                    .Regisetr(requestBodyA, requestBodyB, params)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<RegisterModel>() {
-                        @Override
-                        public void onCompleted() {
-                        }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            ToastUtils.showInfo(RegisterActivity.this, "onError" + e.getMessage());
-                        }
+        MyLoader.showLoading(RegisterActivity.this);
+        mSubscription = NetWork.getRegisterApi()
+                .Regisetr(requestBodyA, requestBodyB, params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<RegisterModel>() {
+                    @Override
+                    public void onCompleted() {
+                        MyLoader.stopLoading();
+                    }
 
-                        @Override
-                        public void onNext(RegisterModel registerModel) {
-                            if (registerModel != null) {
-                                ToastUtils.showInfo(RegisterActivity.this, registerModel.getCode() + " " + registerModel.getHint() + " ");
+                    @Override
+                    public void onError(Throwable e) {
+                        MyLoader.stopLoading();
+                        Common.ShouwError(RegisterActivity.this);
+                    }
+
+                    @Override
+                    public void onNext(RegisterModel registerModel) {
+                        MyLoader.stopLoading();
+                        if (registerModel != null) {
+                            if (registerModel.getCode() == 0) {
+                                ToastUtils.showSuccess(RegisterActivity.this, "注册成功");
                             } else {
-                                ToastUtils.showInfo(RegisterActivity.this, registerModel.getCode() + "||| " + registerModel.getHint() + " ");
+                                ToastUtils.showError(RegisterActivity.this, registerModel.getHint());
                             }
+                        } else {
+                            Common.ShouwError(RegisterActivity.this);
                         }
-                    });
-        }
+                    }
+                });
+
+    }
+
+    public void getRegisterCode() {
+        mSubscription = NetWork.getCodeApi()
+                .getCode(phone, "register")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<BaseModel>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Common.ShouwError(RegisterActivity.this);
+                    }
+
+                    @Override
+                    public void onNext(BaseModel baseModel) {
+                        if (baseModel != null) {
+                            ToastUtils.showInfo(RegisterActivity.this, baseModel.code + " " + baseModel.hint + " ");
+                        } else {
+                            ToastUtils.showInfo(RegisterActivity.this, baseModel.code + " " + baseModel.hint + " ");
+                        }
+                    }
+                });
     }
 
     private void initShowHide() {
@@ -196,11 +247,11 @@ public class RegisterActivity extends BaseActivity {
                 ValueAnimator valueAnimator = new ValueAnimator();
                 if (mSwitchButtonChick) {
                     valueAnimator.setIntValues(-mLayoutHeight, 0);
-                    isMember = true;
-                    Role = "member";
-                } else {
                     isMember = false;
                     Role = "merchant";
+                } else {
+                    isMember = true;
+                    Role = "member";
                     valueAnimator.setIntValues(0, -mLayoutHeight);
                 }
                 //设置监听的值
@@ -248,7 +299,14 @@ public class RegisterActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_register_getcode:
-                new countDownTimer<TextView>(tvRegisterGetcode);
+                phone = etRegisterPhone.getText().toString();
+                if (TextUtils.isEmpty(phone)) {
+                    ToastUtils.showWarning(RegisterActivity.this, "请输入电话号码");
+                } else {
+                    new countDownTimer<TextView>(tvRegisterGetcode);
+                    getRegisterCode();
+                }
+
                 break;
             case R.id.im_register_image_one:
                 selectImage();
@@ -260,7 +318,7 @@ public class RegisterActivity extends BaseActivity {
                 if (cbRegisterLookAgreement.isChecked())
                     isAgree = true;
                 else
-                    isAgree = true;
+                    isAgree = false;
                 break;
             case R.id.btn_register_ok:
                 Register();
@@ -277,28 +335,6 @@ public class RegisterActivity extends BaseActivity {
                 .forResult(PictureConfig.CHOOSE_REQUEST);
     }
 
-    //避免内存泄漏
-    public static class countDownTimer<T> extends CountDownTimer {
-        private TextView mTextView;
-
-        public countDownTimer(T text) {
-            super(60000, 1000);
-            this.mTextView = ((TextView) text);
-            mTextView.setClickable(false);
-            start();
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            mTextView.setText(String.format("%s秒", millisUntilFinished / 1000));
-        }
-
-        @Override
-        public void onFinish() {
-            mTextView.setText("获取验证码");
-            mTextView.setClickable(true);
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

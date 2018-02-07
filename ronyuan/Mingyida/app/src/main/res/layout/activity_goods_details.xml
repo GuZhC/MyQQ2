@@ -113,7 +113,7 @@
 
 
                 <com.zhy.view.flowlayout.TagFlowLayout
-                    android:id="@+id/tag_goods_specification"
+                    android:id="@+id/tag_goods_details_specification"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="8dp"
                     zhy:max_select="1"
@@ -149,7 +149,7 @@
 
 
                 <com.zhy.view.flowlayout.TagFlowLayout
-                    android:id="@+id/id_flowlayout"
+                    android:id="@+id/tag_goods_details_promotion"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="8dp"
                     zhy:max_select="1"
@@ -195,95 +195,8 @@
                 android:layout_height="10dp"
                 android:background="#f3f5f7" />
 
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="17dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_shangpingdetails_shangjai_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@mipmap/shops_little_shops"
-                        android:drawablePadding="5dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="成都松兰科技有限公司"
-                        android:textColor="#666666"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/tv_shangpingdetails_shangjai_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:drawableLeft="@mipmap/shops_little_phone"
-                        android:drawablePadding="5dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="服务电话：028-64729189 "
-                        android:textColor="#666666"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/tv_shangpingdetails_shangjai_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:drawableLeft="@mipmap/shops_little_worktime"
-                        android:drawablePadding="5dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="服务时间：周一至周五 9:00-18:00"
-                        android:textColor="#666666"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/tv_shangpingdetails_sngjai_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:drawableLeft="@mipmap/shops_little_locatin"
-                        android:drawablePadding="5dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="服务时间：周一至周五 9:00-18:00"
-                        android:textColor="#666666"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="20dp"
-                    android:background="#bfbfbf" />
-
-                <TextView
-                    android:id="@+id/shops_phone"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="9dp"
-                    android:drawableTop="@mipmap/shops_phone"
-                    android:text="联系商家" />
-
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="10dp"
-                android:background="#f3f5f7" />
-
             <android.support.design.widget.TabLayout
-                android:id="@+id/tv_shangpingdetails_tablayout"
+                android:id="@+id/tv_goods_details_tablayout"
                 android:layout_width="match_parent"
                 android:layout_height="37dp"
                 app:tabGravity="fill"
@@ -298,8 +211,8 @@
                 android:layout_marginBottom="3dp"
                 android:background="@color/darktGray" />
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/tv_shangpingdetails_viewpage"
+            <com.rongyuan.mingyida.ui.WrapContentHeightViewPager
+                android:id="@+id/tv_goods_details_viewpage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -319,7 +232,7 @@
         android:layout_height="50dp">
 
         <TextView
-            android:id="@+id/tv_nearby_allmoney"
+            android:id="@+id/tv_goods_details_allmoney"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:textSize="14sp"
@@ -335,7 +248,7 @@
             android:background="@color/darktGray"
             android:layout_marginBottom="4dp"/>
         <TextView
-            android:id="@+id/tv_nearby_allmoy"
+            android:id="@+id/tv_goods_details_addcart"
             android:layout_width="108dp"
             android:textSize="16sp"
             android:gravity="center"
@@ -344,7 +257,7 @@
             android:layout_height="match_parent" />
 
         <TextView
-            android:id="@+id/tv_nearby_allnum"
+            android:id="@+id/tv_goods_details_buy"
             android:layout_width="0dp"
             android:textSize="16sp"
             android:layout_weight="1"

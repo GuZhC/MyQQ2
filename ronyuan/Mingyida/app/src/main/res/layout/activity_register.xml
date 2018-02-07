@@ -155,7 +155,6 @@
                 android:layout_marginTop="16dp"
                 android:background="@null"
                 android:hint="请输入真实姓名"
-                android:inputType="textPassword"
                 android:paddingLeft="6dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/lightGray"

@@ -1,5 +1,6 @@
 package com.rongyuan.mingyida.module.nearby;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.rongyuan.mingyida.lbs.GaodeLbsLayerImpl;
 import com.rongyuan.mingyida.lbs.ILbsLayer;
 import com.rongyuan.mingyida.lbs.LocationInfo;
 import com.rongyuan.mingyida.model.NeaberShopModel;
+import com.rongyuan.mingyida.module.store.StoreDetailsActivity;
 import com.rongyuan.mingyida.utils.ToastUtils;
 
 import java.util.List;
@@ -191,7 +193,8 @@ public class NearbyFragment extends BaseFragment implements NearbyContract.INear
         mNearbyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showUsual(getContext(),"click"+position);
+                Intent intent = new Intent(getContext(), StoreDetailsActivity.class);
+                startActivity(intent);
             }
         });
 

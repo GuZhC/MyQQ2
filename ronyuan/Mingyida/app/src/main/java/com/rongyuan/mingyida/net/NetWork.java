@@ -5,8 +5,11 @@ import android.util.Log;
 
 import com.rongyuan.mingyida.model.RegisterModel;
 import com.rongyuan.mingyida.net.api.GankApi;
+import com.rongyuan.mingyida.net.api.GetCodeApi;
 import com.rongyuan.mingyida.net.api.LoginApi;
 import com.rongyuan.mingyida.net.api.RegisetrApi;
+
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.CallAdapter;
@@ -22,12 +25,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetWork {
 
-    public static final String ROOT_URL = "http://192.168.0.109:8080/pyt/public/index.php/apis/";
+    public static final String ROOT_URL = "http://192.168.0.105:8080/a/public/index.php/apis/";
 
     private static GankApi gankApi;
     private static LoginApi mLoginApi;
+    private static GetCodeApi mGetCodeApi;
     private static RegisetrApi mRegisetrApi;
-
     private static OkHttpClient okHttpClient = new OkHttpClient();
     private static Converter.Factory gsonConverterFactory = GsonConverterFactory.create();
     private static CallAdapter.Factory rxJavaCallAdapterFactory = RxJavaCallAdapterFactory.create();
@@ -45,6 +48,22 @@ public class NetWork {
         return gankApi;
     }
 
+    public static GetCodeApi getCodeApi() {
+
+
+
+        if (mGetCodeApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .client(okHttpClient)
+                    .baseUrl(ROOT_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .build();
+            mGetCodeApi = retrofit.create(GetCodeApi.class);
+        }
+        return mGetCodeApi;
+    }
+
 
     public static LoginApi getLoginApi() {
         if (mLoginApi == null) {
@@ -59,9 +78,15 @@ public class NetWork {
         return mLoginApi;
     }
     public static RegisetrApi getRegisterApi() {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build();
+
         if (mRegisetrApi == null) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .client(okHttpClient)
+                    .client(client)
                     .baseUrl(ROOT_URL)
                     .addConverterFactory(gsonConverterFactory)
                     .addCallAdapterFactory(rxJavaCallAdapterFactory)

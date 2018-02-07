@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.base.BaseActivity;
 import com.rongyuan.mingyida.model.AllServiceListModel;
-import com.rongyuan.mingyida.module.goods.goodsdetails.GoodsDetailsActivity;
+import com.rongyuan.mingyida.module.servingproduct.servedetails.ServeDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class AllservicesActivity extends BaseActivity {
     private boolean distance = false;
 
     List<AllServiceListModel> datas;
-    AllServicesDetailAdapter adapter;
+    AllServicesRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +55,13 @@ public class AllservicesActivity extends BaseActivity {
 
     private void setRecycler() {
         recyclerAllserviceList.setLayoutManager(new GridLayoutManager(this, 2));
-        adapter = new AllServicesDetailAdapter(datas);
+        adapter = new AllServicesRecyclerAdapter(datas);
         adapter.openLoadAnimation();
         recyclerAllserviceList.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(AllservicesActivity.this, GoodsDetailsActivity.class));
+                startActivity(new Intent(AllservicesActivity.this, ServeDetailsActivity.class));
             }
         });
     }

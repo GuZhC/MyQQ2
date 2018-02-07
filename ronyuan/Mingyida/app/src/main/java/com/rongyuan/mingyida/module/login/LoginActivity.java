@@ -72,6 +72,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.ILoginV
                 LoginClick();
                 break;
             case R.id.tv_login_forget_psd:
+                startActivity(new Intent(LoginActivity.this, ForgetPswActivity.class));
                 break;
             case R.id.tv_login_register:
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));

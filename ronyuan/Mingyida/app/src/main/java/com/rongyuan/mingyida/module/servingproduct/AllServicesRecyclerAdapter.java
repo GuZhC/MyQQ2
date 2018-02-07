@@ -17,10 +17,10 @@ import java.util.List;
  * describe:
  */
 
-public class AllServicesDetailAdapter extends BaseQuickAdapter<AllServiceListModel, BaseViewHolder> {
+public class AllServicesRecyclerAdapter extends BaseQuickAdapter<AllServiceListModel, BaseViewHolder> {
 
 
-    public AllServicesDetailAdapter(@Nullable List<AllServiceListModel> data) {
+    public AllServicesRecyclerAdapter(@Nullable List<AllServiceListModel> data) {
         super(R.layout.item_allservice_list, data);
     }
 
@@ -33,10 +33,10 @@ public class AllServicesDetailAdapter extends BaseQuickAdapter<AllServiceListMod
         } else {
             helper.getView(R.id.tv_allservice_recycler_promotion).setVisibility(View.VISIBLE);
         }
-        helper.setText(R.id.tv_allservice_recycler_market_price, "市场价￥:" + item.getMarketPrice());
+        helper.setText(R.id.tv_allservice_recycler_market_price, "门市￥:" + item.getMarketPrice());
         helper.setText(R.id.tv_allservice_recycler_title, item.getTitle());
         helper.setText(R.id.tv_allservice_recycler_shopname, item.getShopsname());
-        helper.setText(R.id.tv_allservice_recycler_buy_distance, item.getDistance());
+        helper.setText(R.id.tv_allservice_recycler_buy_distance, item.getDistance()+"米");
 
     }
 }
