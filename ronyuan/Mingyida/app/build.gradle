@@ -50,6 +50,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     //ui
+    compile 'liji.library.dev:citypickerview:3.1.5'//地址选择
+    compile 'me.zhanghai.android.materialratingbar:library:1.2.0'
     compile 'com.youth.banner:banner:1.4.10'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
     compile 'com.github.GrenderG:Toasty:1.2.8'

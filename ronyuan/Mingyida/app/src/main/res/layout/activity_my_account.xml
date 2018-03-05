@@ -9,7 +9,7 @@
     tools:context="com.rongyuan.mingyida.module.me.account.MyAccountActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/me_head_image"
+        android:id="@+id/me_account_head_image"
         android:layout_width="86dp"
         android:layout_height="86dp"
         android:layout_gravity="center_horizontal"
@@ -49,12 +49,15 @@
                     android:textSize="14sp" />
 
                 <EditText
+                    android:id="@+id/et_me_account_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="6dp"
                     android:layout_marginRight="26dp"
                     android:background="@null"
+                    android:maxLines="1"
                     android:gravity="center"
+                    android:ellipsize="end"
                     android:textColor="@color/textBlack"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -65,7 +68,7 @@
                 android:background="@color/darktGray" />
 
             <LinearLayout
-
+                android:id="@+id/ll_my_change_phone"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -93,7 +96,7 @@
                 android:background="@color/darktGray" />
 
             <LinearLayout
-                android:id="@+id/l_me_news"
+                android:id="@+id/ll_my_change_psw"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"

@@ -1,7 +1,9 @@
 package com.rongyuan.mingyida.net.api;
 
+import com.rongyuan.mingyida.model.BannerModel;
 import com.rongyuan.mingyida.model.BaseModel;
-import com.rongyuan.mingyida.model.LoginModel;
+
+import java.util.List;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -13,9 +15,8 @@ import rx.Observable;
  * describe:
  */
 
-public interface GetCodeApi {
+public interface BannerApi {
     @FormUrlEncoded
-//    @Headers("Content-Type: application/json")
-    @POST("auth")
-    Observable<BaseModel> getCode(@Field("phone") String which, @Field("type") String username);
+    @POST("banner")
+    Observable<BaseModel<List<BannerModel>>> getBanner(@Field("type") String type);
 }

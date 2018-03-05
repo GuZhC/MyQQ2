@@ -1,8 +1,8 @@
 package com.rongyuan.mingyida.module.home;
 
-import android.util.Log;
-
 import com.rongyuan.mingyida.R;
+import com.rongyuan.mingyida.model.BannerModel;
+import com.rongyuan.mingyida.model.BaseModel;
 import com.rongyuan.mingyida.model.CategoryResult;
 import com.rongyuan.mingyida.model.ClassifyBeans;
 import com.rongyuan.mingyida.model.HomeAllModel;
@@ -129,66 +129,65 @@ public class HomePresenter implements HomeContract.IHomePresenter {
     @Override
     public void getRecyclerDataAll() {
         List<HomeAllModel> datas = new ArrayList<>();
-        for (int i = 0 ; i<3; i++){
-        HomeAllModel data = new HomeAllModel();
-        data.setTitleA("岁月丶竟好？");
-        data.setTitleB("岁月丶静好？");
-        data.setTitleC("岁月丶禁好？");
-        data.setCotentA("岁月丶竟好");
-        data.setCotentB("岁月丶静好");
-        data.setCotentC("岁月丶禁好");
-        data.setImageA("https://ws1.sinaimg.cn/large/610dc034ly1fjgfyxgwgnj20u00gvgmt.jpg");
-        data.setImageB("https://ws1.sinaimg.cn/large/610dc034ly1fj3w0emfcbj20u011iabm.jpg");
-        data.setImageC("https://ws1.sinaimg.cn/large/610dc034ly1fhj5228gwdj20u00u0qv5.jpg");
-        datas.add(data);
+        for (int i = 0; i < 3; i++) {
+            HomeAllModel data = new HomeAllModel();
+            data.setTitleA("岁月丶竟好？");
+            data.setTitleB("岁月丶静好？");
+            data.setTitleC("岁月丶禁好？");
+            data.setCotentA("岁月丶竟好");
+            data.setCotentB("岁月丶静好");
+            data.setCotentC("岁月丶禁好");
+            data.setImageA("https://ws1.sinaimg.cn/large/610dc034ly1fjgfyxgwgnj20u00gvgmt.jpg");
+            data.setImageB("https://ws1.sinaimg.cn/large/610dc034ly1fj3w0emfcbj20u011iabm.jpg");
+            data.setImageC("https://ws1.sinaimg.cn/large/610dc034ly1fhj5228gwdj20u00u0qv5.jpg");
+            datas.add(data);
         }
         mHomeView.setRecyclerall(datas);
     }
 
     @Override
     public void getBannerData() {
-        mSubscription = NetWork.getGankApi()
-                .getCategoryData("福利", 5, 1)
+        mSubscription = NetWork.getBannerApi()
+                .getBanner("list")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<CategoryResult>() {
+                .subscribe(new Observer<BaseModel<List<BannerModel>>>() {
                     @Override
                     public void onCompleted() {
-
                     }
 
                     @Override
                     public void onError(Throwable e) {
-//                        mHomeView.showBannerFail("Banner 图加载失败");
-                        List<String> imagUrls = new ArrayList<>();
-                        imagUrls.add("errorview");
-                        imagUrls.add("errorview");
-                        mHomeView.setBanner(imagUrls);
+                        ErrorBannerData();
                     }
 
                     @Override
-                    public void onNext(CategoryResult categoryResult) {
-                        if (categoryResult != null && categoryResult.results != null
-                                && categoryResult.results.size() > 0) {
-                            List<String> imagUrls = new ArrayList<>();
-                            for (CategoryResult.ResultsBean result : categoryResult.results) {
-                                if (!result.url.isEmpty()) {
-                                    imagUrls.add(result.url);
+                    public void onNext(BaseModel<List<BannerModel>> mBannerModel) {
+                        if (mBannerModel.code == 0) {
+                            if (mBannerModel != null && mBannerModel.getData() != null
+                                    && mBannerModel.getData().size() > 0) {
+                                List<String> imagUrls = new ArrayList<>();
+                                for (BannerModel result : mBannerModel.getData()) {
+                                    if (!result.getUrl_after().isEmpty() && !result.getUrl_before().isEmpty()) {
+                                        imagUrls.add(result.getUrl_before() + result.getUrl_after());
+                                    }
                                 }
-                                PictureModel model = new PictureModel();
-                                model.desc = result.desc;
-                                model.url = result.url;
-                                mModels.add(model);
+                                mHomeView.setBanner(imagUrls);
+                            } else {
+                                ErrorBannerData();
                             }
-                            mHomeView.setBanner(imagUrls);
                         } else {
-//                            mHomeView.showBannerFail("Banner 图加载失败");
-                            List<String> imagUrls = new ArrayList<>();
-                            imagUrls.add("errorview");
-                            imagUrls.add("errorview");
-                            mHomeView.setBanner(imagUrls);
+                            ErrorBannerData();
                         }
+
                     }
                 });
+    }
+
+    public void ErrorBannerData() {
+        List<String> imagUrls = new ArrayList<>();
+        imagUrls.add("errorview");
+        imagUrls.add("errorview");
+        mHomeView.setBanner(imagUrls);
     }
 }

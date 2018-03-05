@@ -99,13 +99,13 @@
 
         <TextView
             android:id="@+id/tv_login_forget_psd"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="4dp"
             android:gravity="center"
             android:padding="6dp"
-            android:text="忘记"
+            android:text="忘记密码"
             android:textColor="@color/white"
             android:textSize="14sp" />
     </LinearLayout>

@@ -191,7 +191,9 @@ public class RegisterActivity extends BaseActivity {
                         if (registerModel != null) {
                             if (registerModel.getCode() == 0) {
                                 ToastUtils.showSuccess(RegisterActivity.this, "注册成功");
-                            } else {
+                            } else if (registerModel.getCode() == 10003){
+                                ToastUtils.showSuccess(RegisterActivity.this,"验证码错误");
+                            }else {
                                 ToastUtils.showError(RegisterActivity.this, registerModel.getHint());
                             }
                         } else {
@@ -220,9 +222,14 @@ public class RegisterActivity extends BaseActivity {
                     @Override
                     public void onNext(BaseModel baseModel) {
                         if (baseModel != null) {
-                            ToastUtils.showInfo(RegisterActivity.this, baseModel.code + " " + baseModel.hint + " ");
+                            if (baseModel.code == 0){
+                                ToastUtils.showSuccess(RegisterActivity.this,"发送成功，请注意查收");
+                            }else {
+                                ToastUtils.showError(RegisterActivity.this,"发送失败，请稍后再试");
+                            }
+
                         } else {
-                            ToastUtils.showInfo(RegisterActivity.this, baseModel.code + " " + baseModel.hint + " ");
+                            Common.ShouwError(RegisterActivity.this);
                         }
                     }
                 });
@@ -362,8 +369,14 @@ public class RegisterActivity extends BaseActivity {
                                 .load(selectList.get(1).getPath())
                                 .apply(options)
                                 .into(imRegisterImageTwo);
-                        fileA = new File(selectList.get(0).getCompressPath());
-                        fileB = new File(selectList.get(1).getCompressPath());
+
+                        if( selectList.get(0).isCompressed()){
+                            fileA = new File(selectList.get(0).getCompressPath());
+                            fileB = new File(selectList.get(1).getCompressPath());
+                        }else {
+                            fileA = new File(selectList.get(0).getPath());
+                            fileB = new File(selectList.get(1).getPath());
+                        }
                     }
                     break;
             }

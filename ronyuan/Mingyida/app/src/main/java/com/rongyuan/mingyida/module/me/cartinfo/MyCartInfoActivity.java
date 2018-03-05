@@ -75,6 +75,7 @@ public class MyCartInfoActivity extends BaseActivity implements MyCartContract.I
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.me_head_image:
+                //todo 入口暂时写这，以后要改
                 startActivity(new Intent(MyCartInfoActivity.this, AddMyCart.class));
                 break;
             case R.id.my_cart_go_add:

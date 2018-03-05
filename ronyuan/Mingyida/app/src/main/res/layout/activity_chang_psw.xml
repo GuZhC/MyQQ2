@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/backgroundGray"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="50dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="26dp"
@@ -17,31 +17,32 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@mipmap/forget_psw_phone" />
+            android:src="@mipmap/changepsw_psw" />
 
         <EditText
-            android:id="@+id/et_fogetpsw_phone"
+            android:id="@+id/et_changepsw_psw"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:background="@null"
-            android:digits="0123456789"
-            android:hint="请输入手机号"
+            android:digits="@string/rule_password"
+            android:hint="请输入旧密码"
+            android:inputType="textPassword"
             android:textColor="@color/textBlack" />
     </LinearLayout>
 
     <View
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="18dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
         android:background="@color/colorPrimary" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginTop="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="26dp"
@@ -50,52 +51,10 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@mipmap/forget_psw_code" />
+            android:src="@mipmap/changepsw_psw" />
 
         <EditText
-            android:id="@+id/et_fogetpsw_code"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
-            android:background="@null"
-            android:hint="请输入验证码"
-            android:textColor="@color/textBlack" />
-
-        <TextView
-            android:id="@+id/tv_fogetpsw_getcode"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingRight="4dp"
-            android:text="获取验证码"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="250dp"
-        android:layout_height="0.5dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="18dp"
-        android:background="@color/colorPrimary" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="26dp"
-        android:paddingRight="26dp">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@mipmap/forget_psw_psw" />
-
-        <EditText
-            android:id="@+id/et_fogetpsw_psw"
+            android:id="@+id/et_changepsw_newpsw"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
@@ -108,16 +67,16 @@
     </LinearLayout>
 
     <View
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="18dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
         android:background="@color/colorPrimary" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginTop="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="26dp"
@@ -126,10 +85,10 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@mipmap/forget_psw_psw" />
+            android:src="@mipmap/changepsw_psw_again" />
 
         <EditText
-            android:id="@+id/et_fogetpsw_pswtwo"
+            android:id="@+id/et_changepsw_newpsw_again"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
@@ -142,18 +101,19 @@
     </LinearLayout>
 
     <View
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="18dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
         android:background="@color/colorPrimary" />
 
     <Button
-        android:id="@+id/btn_fogetpsw_ok"
+        android:id="@+id/btn_changepsw_ok"
         android:layout_width="330dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/shape_circle_fogetpsw_btn_bg"
         android:text="确认修改"
         android:textColor="@color/white"

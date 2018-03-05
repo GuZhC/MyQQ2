@@ -267,7 +267,7 @@
                     android:layout_weight="1"
                     android:drawableLeft="@mipmap/me_safety"
                     android:drawablePadding="8dp"
-                    android:text="账户无安全"
+                    android:text="账户与安全"
                     android:textColor="@color/textBlack"
                     android:textSize="14sp" />
 

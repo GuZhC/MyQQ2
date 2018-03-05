@@ -52,7 +52,10 @@
         <activity android:name=".module.store.StoreDetailsActivity" />
         <activity android:name=".module.servingproduct.servedetails.ServeDetailsActivity" />
         <activity android:name=".module.login.ForgetPswActivity" />
-        <activity android:name=".module.me.account.MyAccountActivity"></activity>
+        <activity android:name=".module.me.account.MyAccountActivity" />
+        <activity android:name=".module.me.account.ChangePswActivity" />
+        <activity android:name=".module.me.address.MyAddressActivity" />
+        <activity android:name=".module.me.address.EditeAddressActivity"></activity>
     </application>
 
 </manifest>

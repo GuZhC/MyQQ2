@@ -72,7 +72,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.ILoginV
                 LoginClick();
                 break;
             case R.id.tv_login_forget_psd:
-                startActivity(new Intent(LoginActivity.this, ForgetPswActivity.class));
+                Intent intent = new Intent(LoginActivity.this, ForgetPswActivity.class);
+                intent.putExtra("which",Role);
+                startActivity(intent);
                 break;
             case R.id.tv_login_register:
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
@@ -108,6 +110,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.ILoginV
         MyLoader.stopLoading();
     }
 
+    @Override
+    public void ActivityFinish() {
+        finish();
+    }
+
     public void choseMerchant() {
         IsMember = false;
         Role = "merchant";
@@ -121,7 +128,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.ILoginV
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(psw))
             mLoginPresenter.Login(Role, name, psw);
         else
-            ToastUtils.showError(LoginActivity.this, "请输入用户名或密码");
+            ToastUtils.showWarning(LoginActivity.this, "请输入用户名或密码");
 
         try {
             mLoginPresenter.RememberPsw(isRemenberPsw, name, psw, IsMember);

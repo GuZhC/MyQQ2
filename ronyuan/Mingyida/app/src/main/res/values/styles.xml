@@ -37,4 +37,10 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="MyRatingBarStyle" parent="Base.Widget.AppCompat.RatingBar">
+        <item name="android:progressDrawable">@drawable/rating_layer</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:maxHeight">48dp</item>
+    </style>
+
 </resources>

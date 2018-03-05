@@ -18,7 +18,7 @@ import rx.Observable;
 
 public interface RegisetrApi {
     @Multipart
-    @POST("rl/register")
+    @POST("register")
 //    @Headers("Content-Type: application/json")
     Observable<RegisterModel> Regisetr(@Part("id_card_photo\"; filename=\"id_card_photo.png\"") RequestBody id_card_photo,
                                        @Part("business_license\"; filename=\"business_license.png\"") RequestBody business_license,

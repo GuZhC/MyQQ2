@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.rongyuan.mingyida.R;
+import com.rongyuan.mingyida.model.CommentModel;
 import com.rongyuan.mingyida.model.NeaberShopModel;
 import com.rongyuan.mingyida.module.nearby.NearbyAdapter;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class GoodsDetailTablayoutFragment extends Fragment {
     private String type;
     private String goodsid;
     List<NeaberShopModel> data;
+    List<CommentModel> commentData;
 
     public static GoodsDetailTablayoutFragment getInstance(String type, String goodsid) {
         GoodsDetailTablayoutFragment fragment = new GoodsDetailTablayoutFragment();
@@ -50,6 +52,7 @@ public class GoodsDetailTablayoutFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_goods_details_tablayout, container, false);
         unbinder = ButterKnife.bind(this, view);
         getRecyclerData();
+        getRecyclerCommentData();
         return view;
     }
 
@@ -60,8 +63,7 @@ public class GoodsDetailTablayoutFragment extends Fragment {
             //todo 更换Adapter
             setRecycler(new NearbyAdapter(data));
         } else {
-            //todo 更换Adapter
-            setRecycler(new NearbyAdapter(data));
+            setRecycler(new CommentAdapter(commentData));
         }
     }
 
@@ -101,6 +103,33 @@ public class GoodsDetailTablayoutFragment extends Fragment {
             }
             neaberShopModel.setDistance(i + "66 米 ");
             data.add(neaberShopModel);
+        }
+    }
+
+    //todo 测试用
+    public void getRecyclerCommentData() {
+        commentData = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            List imageData;
+            CommentModel commentModel = new CommentModel();
+            commentModel.setStarLevel((float) (i+0.5));
+            commentModel.setCommentContent("赫赫有名的大师，但它向我们展示：在他们年轻的时候，也在同样悄无声息，平平淡淡的日子里努力着。 真实地生活，自有千钧之力将他们带出那段看上去艰苦的岁月。");
+            commentModel.setTime("刚刚");
+            commentModel.setUsername("一心向前，无问西东");
+            commentModel.setHeadimage("https://ws1.sinaimg.cn/large/610dc034ly1fis7dvesn6j20u00u0jt4.jpg");
+            imageData = new ArrayList<String>();
+            if (i == 0){
+                imageData.add("https://ws1.sinaimg.cn/large/610dc034ly1fis7dvesn6j20u00u0jt4.jpg");
+                imageData.add("https://ws1.sinaimg.cn/large/610dc034ly1fiednrydq8j20u011itfz.jpg");
+                imageData.add("https://ws1.sinaimg.cn/large/610dc034ly1fiiiyfcjdoj20u00u0ju0.jpg");
+            }else if (i == 2){
+                imageData.add("https://ws1.sinaimg.cn/large/610dc034ly1fis7dvesn6j20u00u0jt4.jpg");
+                imageData.add("https://ws1.sinaimg.cn/large/610dc034ly1fiednrydq8j20u011itfz.jpg");
+            }else if (i == 4){
+                imageData.add("https://ws1.sinaimg.cn/large/610dc034ly1fiiiyfcjdoj20u00u0ju0.jpg");
+            }
+            commentModel.setCommentimages(imageData);
+            commentData.add(commentModel);
         }
     }
 

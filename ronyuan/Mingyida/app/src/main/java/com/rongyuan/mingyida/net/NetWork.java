@@ -1,12 +1,12 @@
 package com.rongyuan.mingyida.net;
 
 
-import android.util.Log;
-
-import com.rongyuan.mingyida.model.RegisterModel;
+import com.rongyuan.mingyida.net.api.BannerApi;
+import com.rongyuan.mingyida.net.api.ForgetPswApi;
 import com.rongyuan.mingyida.net.api.GankApi;
 import com.rongyuan.mingyida.net.api.GetCodeApi;
 import com.rongyuan.mingyida.net.api.LoginApi;
+import com.rongyuan.mingyida.net.api.PostCartInforApi;
 import com.rongyuan.mingyida.net.api.RegisetrApi;
 
 import java.util.concurrent.TimeUnit;
@@ -20,20 +20,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * 网络操作类
- *
  */
 
 public class NetWork {
 
-    public static final String ROOT_URL = "http://192.168.0.105:8080/a/public/index.php/apis/";
+    public static final String ROOT_URL = "http://116.62.235.64/ap/public/app.php/";
 
     private static GankApi gankApi;
     private static LoginApi mLoginApi;
     private static GetCodeApi mGetCodeApi;
     private static RegisetrApi mRegisetrApi;
+    private static ForgetPswApi mForgetPswApi;
+    private static BannerApi mBannerApi;
+
     private static OkHttpClient okHttpClient = new OkHttpClient();
     private static Converter.Factory gsonConverterFactory = GsonConverterFactory.create();
     private static CallAdapter.Factory rxJavaCallAdapterFactory = RxJavaCallAdapterFactory.create();
+    private static PostCartInforApi mPostCartInforApi;
 
     public static GankApi getGankApi() {
         if (gankApi == null) {
@@ -49,9 +52,6 @@ public class NetWork {
     }
 
     public static GetCodeApi getCodeApi() {
-
-
-
         if (mGetCodeApi == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .client(okHttpClient)
@@ -77,6 +77,7 @@ public class NetWork {
         }
         return mLoginApi;
     }
+
     public static RegisetrApi getRegisterApi() {
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(100, TimeUnit.SECONDS)
@@ -93,7 +94,45 @@ public class NetWork {
                     .build();
             mRegisetrApi = retrofit.create(RegisetrApi.class);
         }
-        Log.e("oooooo","getRegisterApi");
         return mRegisetrApi;
+    }
+
+    public static ForgetPswApi getForgetPswApi() {
+        if (mForgetPswApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .client(okHttpClient)
+                    .baseUrl(ROOT_URL)
+                    .addConverterFactory(gsonConverterFactory)
+                    .addCallAdapterFactory(rxJavaCallAdapterFactory)
+                    .build();
+            mForgetPswApi = retrofit.create(ForgetPswApi.class);
+        }
+        return mForgetPswApi;
+    }
+
+    public static BannerApi getBannerApi() {
+        if (mBannerApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .client(okHttpClient)
+                    .baseUrl(ROOT_URL)
+                    .addConverterFactory(gsonConverterFactory)
+                    .addCallAdapterFactory(rxJavaCallAdapterFactory)
+                    .build();
+            mBannerApi = retrofit.create(BannerApi.class);
+        }
+        return mBannerApi;
+    }
+
+    public static PostCartInforApi postCartInforApi() {
+        if (mPostCartInforApi == null) {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .client(okHttpClient)
+                    .baseUrl(ROOT_URL)
+                    .addConverterFactory(gsonConverterFactory)
+                    .addCallAdapterFactory(rxJavaCallAdapterFactory)
+                    .build();
+            mPostCartInforApi = retrofit.create(PostCartInforApi.class);
+        }
+        return mPostCartInforApi;
     }
 }

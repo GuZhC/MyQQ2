@@ -97,11 +97,29 @@ public class LoginPresenter implements LoginContract.ILoginPresentr {
                     @Override
                     public void onNext(BaseModel<LoginModel> loginModel) {
                         mLoginView.StopLoading();
-                        if (loginModel != null && loginModel.getData() != null) {
-                            ToastUtils.showInfo(context, String.valueOf(loginModel.hint));
-                            ToastUtils.showInfo(context, loginModel.getData().getApi_secret());
+                        if (loginModel != null ) {
+                            if (loginModel.code == 0) {
+                                if (loginModel.getData() != null){
+                                    SharedPreferences.Editor edit = sp.edit();
+                                    try {
+                                        edit.putString("key", Eds.getDES(loginModel.getData().getApi_secret()));
+                                        edit.commit();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    mLoginView.ActivityFinish();
+                                }else {
+                                    ToastUtils.showError(context,"获取用户信息失败");
+                                }
+                            } else if (loginModel.code == 10003) {
+                                ToastUtils.showError(context,"密码错误");
+                            } else if (loginModel.code == 10006) {
+                                ToastUtils.showError(context,"用户不存在，或角色错误");
+                            } else {
+                                ToastUtils.showError(context, String.valueOf(loginModel.hint));
+                            }
                         } else {
-                            ToastUtils.showInfo(context, String.valueOf(loginModel.hint));
+                            Common.ShouwError(context);
                         }
                     }
                 });

@@ -3,7 +3,9 @@ package com.rongyuan.mingyida.net.api;
 import com.rongyuan.mingyida.model.BaseModel;
 import com.rongyuan.mingyida.model.LoginModel;
 
-import retrofit2.http.Field;
+import java.util.Map;
+
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -13,9 +15,8 @@ import rx.Observable;
  * describe:
  */
 
-public interface GetCodeApi {
+public interface PostCartInforApi {
     @FormUrlEncoded
-//    @Headers("Content-Type: application/json")
-    @POST("auth")
-    Observable<BaseModel> getCode(@Field("phone") String which, @Field("type") String username);
+    @POST("car")
+    Observable<BaseModel> postCartInfor(@FieldMap Map<String, String> params);
 }

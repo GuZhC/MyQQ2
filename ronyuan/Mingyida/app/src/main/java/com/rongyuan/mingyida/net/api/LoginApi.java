@@ -17,6 +17,6 @@ import rx.Observable;
 public interface LoginApi {
     @FormUrlEncoded
 //    @Headers("Content-Type: application/json")
-    @POST("Rl/login")
+    @POST("login")
     Observable<BaseModel<LoginModel>> getLoginData(@Field("which") String which, @Field("username") String username, @Field("password") String password);
 }

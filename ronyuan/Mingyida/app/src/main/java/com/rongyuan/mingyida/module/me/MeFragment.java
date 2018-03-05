@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide;
 import com.rongyuan.mingyida.R;
 import com.rongyuan.mingyida.base.BaseFragment;
 import com.rongyuan.mingyida.module.login.LoginActivity;
+import com.rongyuan.mingyida.module.me.account.MyAccountActivity;
+import com.rongyuan.mingyida.module.me.address.MyAddressActivity;
 import com.rongyuan.mingyida.module.me.cartinfo.MyCartInfoActivity;
 import com.rongyuan.mingyida.utils.ToastUtils;
 
@@ -60,7 +62,7 @@ public class MeFragment extends BaseFragment {
 
     @Override
     protected int getContentViewLayoutID() {
-        return R.layout. fragment_me;
+        return R.layout.fragment_me;
     }
 
     @Override
@@ -88,14 +90,15 @@ public class MeFragment extends BaseFragment {
 
     @OnClick({R.id.me_cart_info, R.id.me_me_code, R.id.tv_me_lookall_order, R.id.me_nopay_order,
             R.id.me_noserve_order, R.id.me_complete_order, R.id.me_backmoney_order, R.id.l_me_location,
-            R.id.l_me_safety, R.id.l_me_news, R.id.l_me_aboutme,R.id.me_toolbar_set})
+            R.id.l_me_safety, R.id.l_me_news, R.id.l_me_aboutme, R.id.me_toolbar_set})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.me_toolbar_set:
-                startActivity(new Intent(getContext(),LoginActivity.class));
+                // todo 暂时写这
+                startActivity(new Intent(getContext(), LoginActivity.class));
                 break;
-                case R.id.me_cart_info:
-               startActivity(new Intent(getContext(),MyCartInfoActivity.class));
+            case R.id.me_cart_info:
+                startActivity(new Intent(getContext(), MyCartInfoActivity.class));
                 break;
             case R.id.me_me_code:
                 ToastUtils.showInfo(getContext(), "click");
@@ -116,10 +119,10 @@ public class MeFragment extends BaseFragment {
                 ToastUtils.showInfo(getContext(), "click");
                 break;
             case R.id.l_me_location:
-                ToastUtils.showInfo(getContext(), "click");
+                startActivity(new Intent(getContext(), MyAddressActivity.class));
                 break;
             case R.id.l_me_safety:
-                ToastUtils.showInfo(getContext(), "click");
+                startActivity(new Intent(getContext(), MyAccountActivity.class));
                 break;
             case R.id.l_me_news:
                 ToastUtils.showInfo(getContext(), "click");
