@@ -18,5 +18,6 @@ import rx.Observable;
 public interface ForgetPswApi {
     @FormUrlEncoded
     @POST("forget")
-    Observable<BaseModel<LoginModel>> getForgetPsw(@FieldMap Map<String, String> params);
+    Observable<BaseModel<LoginModel>
+            > getForgetPsw(@FieldMap Map<String, String> params);
 }

@@ -16,7 +16,6 @@ import com.rongyuan.mingyida.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationBar mBottomNavigationBar;
